@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import * as Tooltip from '@radix-ui/react-tooltip';
 import { FilterMode } from '../lib/midiProcessing';
 
 // --- Constants & Geometry ---
@@ -294,37 +293,36 @@ export function MidiNoteRangeFilter({
   range,
   onRangeChange,
 }: MidiNoteRangeFilterProps) {
+  const [hoveredMode, setHoveredMode] = useState<FilterMode | null>(null);
+
   return (
     <div className="w-full max-w-[1050px] mt-6 bg-neutral-800 rounded-xl shadow-2xl border border-neutral-700 p-4 flex flex-col gap-4">
       <div className="flex flex-col items-center gap-2">
         <label className="text-sm font-semibold tracking-widest text-neutral-400 uppercase">Processing Mode</label>
         <div className="flex bg-neutral-950 p-1 rounded-lg border border-neutral-800">
           {(['block', 'octave_wrap', 'wrap', 'limit'] as FilterMode[]).map((mode) => (
-            <Tooltip.Root key={mode}>
-              <Tooltip.Trigger asChild>
-                <button
-                  onClick={() => onModeChange(mode)}
-                  className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${
-                    activeMode === mode 
-                      ? 'bg-blue-600 text-white shadow-lg' 
-                      : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800'
-                  }`}
-                >
-                  {mode === 'block' ? 'Block' :
-                   mode === 'octave_wrap' ? 'Octave Wrap' :
-                   mode === 'wrap' ? 'Wrap' : 'Limit'}
-                </button>
-              </Tooltip.Trigger>
-              <Tooltip.Portal>
-                <Tooltip.Content 
-                  className="bg-neutral-800 text-neutral-200 text-xs px-3 py-2 rounded shadow-lg border border-neutral-700 max-w-[200px] text-center"
-                  sideOffset={8}
-                >
+            <div key={mode} className="relative flex items-center justify-center">
+              <button
+                onClick={() => onModeChange(mode)}
+                onMouseEnter={() => setHoveredMode(mode)}
+                onMouseLeave={() => setHoveredMode(null)}
+                className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${
+                  activeMode === mode 
+                    ? 'bg-blue-600 text-white shadow-lg' 
+                    : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800'
+                }`}
+              >
+                {mode === 'block' ? 'Block' :
+                 mode === 'octave_wrap' ? 'Octave Wrap' :
+                 mode === 'wrap' ? 'Wrap' : 'Limit'}
+              </button>
+              {hoveredMode === mode && (
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 bg-neutral-800 text-neutral-200 text-xs px-3 py-2 rounded shadow-lg border border-neutral-700 w-48 text-center pointer-events-none animate-in fade-in zoom-in-95 duration-150">
                   {MODE_DESCRIPTIONS[mode]}
-                  <Tooltip.Arrow className="fill-neutral-700" />
-                </Tooltip.Content>
-              </Tooltip.Portal>
-            </Tooltip.Root>
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-neutral-700" />
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </div>
