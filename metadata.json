@@ -1,0 +1,6 @@
+{
+  "name": "MIDI Note Range Filter",
+  "description": "An interactive MIDI filter component that allows you to manage out-of-bounds note mapping physically mapped to a 128-key keyboard view.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
