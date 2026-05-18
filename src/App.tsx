@@ -132,7 +132,7 @@ export default function App() {
       <div className="w-full flex items-center justify-between bg-neutral-950 p-4 border-b border-neutral-800 shadow-xl z-10 px-8">
         <div className="flex-1">
           <h1 className="text-xl font-bold tracking-wider text-neutral-200">
-            MIDI Note Range Filter
+            VV | MIDI Note Range Filter
           </h1>
         </div>
         
