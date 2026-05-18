@@ -1,8 +1,7 @@
 import { AlertCircle, Info, Settings, Settings2, Power } from 'lucide-react';
 import React, { useState, useEffect, useRef } from 'react';
 import * as Tooltip from '@radix-ui/react-tooltip';
-import { updateKeyVisuals128 } from './components/Piano128';
-import { MidiNoteRangeFilter } from './components/MidiNoteRangeFilter';
+import { updateKeyVisuals128, MidiNoteRangeFilter } from './components/MidiNoteRangeFilter';
 import { useMidi } from './hooks/useMidi';
 import { FilterMode, processNote } from './lib/midiProcessing';
 
